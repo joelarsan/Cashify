@@ -46,7 +46,7 @@ fun SplashScreen(navController: NavController){
 
     Column (modifier = Modifier.fillMaxSize()
         .fillMaxSize()
-        .background(Color.DarkGray),
+        .background(Color.Gray),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
@@ -57,12 +57,12 @@ fun SplashScreen(navController: NavController){
             modifier = Modifier.size(200.dp)
         )
 
-        Spacer(modifier = Modifier.height(290.dp))
+        Spacer(modifier = Modifier.height(90.dp))
 
 
         Text(
             text = "CASHIFY",
-            fontSize = 25.sp,
+            fontSize = 55.sp,
             fontFamily = FontFamily.Serif
 
 
