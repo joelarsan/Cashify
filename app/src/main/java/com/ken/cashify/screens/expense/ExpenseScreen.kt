@@ -60,6 +60,7 @@ fun ExpenseScreen(navController:NavController){
         )
         Spacer(modifier = Modifier.height(40.dp))
 
+        
         //Variables
         var fullname by remember { mutableStateOf("") }
         var date by remember { mutableStateOf("") }

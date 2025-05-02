@@ -108,6 +108,7 @@ fun InfoScreen(navController:NavController){
                     .padding(paddingValues)
                     .fillMaxSize()
             ) {
+                
 
 
                 //Main Contents of the page
