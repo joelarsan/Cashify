@@ -49,7 +49,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 
 @Composable
-fun ProfileScreen(navController: NavController,profileViewModel: ProfileViewModel = viewModel()) {
+fun ProfileScreen(navController: NavController,
+                  profileViewModel: ProfileViewModel = viewModel()) {
     val profileState by profileViewModel.uiState.collectAsState()
     val context = LocalContext.current
 
