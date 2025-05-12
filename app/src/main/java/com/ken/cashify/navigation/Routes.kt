@@ -10,9 +10,6 @@ const val ROUT_PROFILE = "profile"
 const val ROUT_SPLASH = "splash"
 
 
-
-
-
 //Authentication
 const val ROUT_REGISTER = "Register"
 const val ROUT_LOGIN = "Login"

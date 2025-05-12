@@ -1,38 +1,89 @@
 package com.ken.cashify.viewmodel
 
+import android.app.Application
 import android.net.Uri
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import com.ken.cashify.model.ProfileUiState
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.ken.cashify.data.ProfileDatabase
+import com.ken.cashify.model.Profile
+import com.ken.cashify.repository.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
-class ProfileViewModel : ViewModel() {
-    private val _uiState = mutableStateOf(ProfileUiState())
-    val uiState = MutableStateFlow(ProfileUiState())
+data class ProfileUiState(
+    val name: String = "",
+    val bio: String = "",
+    val profileImageUri: Uri? = null
+)
 
-    fun updateName(newName: String) {
-        _uiState.value = _uiState.value.copy(name = newName)
+class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+    private val repo: ProfileRepository
+
+    private val _uiState = MutableStateFlow(ProfileUiState())
+    val uiState: StateFlow<ProfileUiState> = _uiState
+
+    init {
+        val dao = ProfileDatabase.getDatabase(application).profileDao()
+        repo = ProfileRepository(dao)
+        loadProfile()
     }
 
-    fun updateBio(newBio: String) {
-        _uiState.value = _uiState.value.copy(bio = newBio)
+    private fun loadProfile() {
+        viewModelScope.launch {
+            repo.getProfile().collect { profile ->
+                profile?.let {
+                    _uiState.value = ProfileUiState(
+                        name = it.name,
+                        bio = it.bio,
+                        profileImageUri = it.profileImageUri?.let(Uri::parse)
+                    )
+                }
+            }
+        }
+    }
+
+    fun updateName(name: String) {
+        _uiState.value = _uiState.value.copy(name = name)
+    }
+
+    fun updateBio(bio: String) {
+        _uiState.value = _uiState.value.copy(bio = bio)
+    }
+
+    fun updateProfileImage(uri: Uri) {
+        _uiState.value = _uiState.value.copy(profileImageUri = uri)
     }
 
     fun saveProfile() {
-        // Add save logic here
-        println("Profile saved: ${_uiState.value}")
+        viewModelScope.launch {
+            val current = _uiState.value
+            val profile = Profile(
+                id = 0,
+                name = current.name,
+                bio = current.bio,
+                profileImageUri = current.profileImageUri?.toString()
+            )
+            repo.saveProfile(profile)
+        }
     }
 
     fun editProfile() {
-        // Enable fields if you want to disable them by default
-        println("Edit profile clicked")
+        // No-op for now, but you could set edit state here
     }
 
     fun logout() {
-        // Add logout logic
-        println("Logged out")
-    }
-    fun updateProfileImage(uri: Uri) {
-        _uiState.value = _uiState.value.copy(profileImageUri = uri)
+        viewModelScope.launch {
+            val current = _uiState.value
+            val profile = Profile(
+                id = 0,
+                name = current.name,
+                bio = current.bio,
+                profileImageUri = current.profileImageUri?.toString()
+            )
+            repo.deleteProfile(profile)
+            _uiState.value = ProfileUiState()
+        }
     }
 }

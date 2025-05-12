@@ -1,4 +1,4 @@
-package com.ken.harakamall.ui.screens.auth
+package com.ken.cashify.ui.screens.auth
 
 
 import android.widget.Toast

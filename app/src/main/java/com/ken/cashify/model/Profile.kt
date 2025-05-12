@@ -1,9 +1,12 @@
 package com.ken.cashify.model
 
-import android.net.Uri
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class ProfileUiState(
-    val name: String = "",
-    val bio: String = "",
-    val profileImageUri: Uri? = null
+@Entity(tableName = "profile")
+data class Profile(
+    @PrimaryKey val id: Int = 0, // Always a single profile, so fixed ID
+    val name: String,
+    val bio: String,
+    val profileImageUri: String? = null
 )

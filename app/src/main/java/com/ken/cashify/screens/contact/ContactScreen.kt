@@ -1,150 +1,90 @@
 package com.ken.cashify.screens.contact
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.ken.harakamall.ui.theme.Azure
+import com.ken.cashify.R
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun ContactScreen(navController: NavController){
+fun ContactScreen(navController: NavController) {
+    val context = LocalContext.current
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF2F2F2))
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(30.dp))
 
-    //Scaffold
+        // Profile Image Placeholder
+        Image(
+            painter = painterResource(id = R.drawable.person), // Replace with your drawable
+            contentDescription = "Profile",
+            modifier = Modifier
+                .size(120.dp)
+                .clip(CircleShape)
+        )
 
-    var selectedIndex by remember { mutableStateOf(0) }
+        Spacer(modifier = Modifier.height(20.dp))
 
-    Scaffold(
-        //TopBar
-        topBar = {
-            TopAppBar(
-                title = { Text("Contact") },
-                navigationIcon = {
-                    IconButton(onClick = { /* Handle back/nav */ }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Azure,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White
-                )
-            )
-        },
+        Text("John Doe", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text("Customer Support", fontSize = 16.sp, color = Color.Gray)
 
-        //BottomBar
-        bottomBar = {
-            NavigationBar(
-                containerColor = Azure
-            ){
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Search, contentDescription = "Home") },
-                    label = { Text("Search") },
-                    selected = selectedIndex == 0,
-                    onClick = { selectedIndex = 0
-                        //navController.navigate(ROUT_HOME)
-                    }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Favorites") },
-                    label = { Text("Favorites") },
-                    selected = selectedIndex == 1,
-                    onClick = { selectedIndex = 1
-                        // navController.navigate(ROUT_HOME)
-                    }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                    label = { Text("Profile") },
-                    selected = selectedIndex == 2,
-                    onClick = { selectedIndex = 2
-                        //  navController.navigate(ROUT_HOME)
-                    }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Info, contentDescription = "Info") },
-                    label = { Text("Info") },
-                    selected = selectedIndex == 2,
-                    onClick = { selectedIndex = 2
-                        //  navController.navigate(ROUT_HOME)
-                    }
-                )
+        Spacer(modifier = Modifier.height(40.dp))
 
-            }
-        },
-
-        //FloatingActionButton
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* Add action */ },
-                containerColor = Azure
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
-        },
-        //Content
-        content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize()
-            ) {
-
-
-                //Main Contents of the page
-                Text(text = "Welcome to Homescreen Screen", fontSize = 20.sp)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text("This is where the main content goes.")
-
-
-
-
-
-
-
-            }
+        // Contact Buttons
+        Button(
+            onClick = {
+                val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:+1234567890"))
+                context.startActivity(callIntent)
+            },
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
+        ) {
+            Text("Call", color = Color.White)
         }
-    )
 
-    //End of scaffold
+        Button(
+            onClick = {
+                val smsIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:+1234567890"))
+                context.startActivity(smsIntent)
+            },
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3))
+        ) {
+            Text("Message", color = Color.White)
+        }
 
-
+        Button(
+            onClick = {
+                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:someone@example.com")
+                    putExtra(Intent.EXTRA_SUBJECT, "Customer Inquiry")
+                }
+                context.startActivity(emailIntent)
+            },
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF44336))
+        ) {
+            Text("Email", color = Color.White)
+        }
+    }
 }
-
-@Preview
-@Composable
-fun ContactScreenPreview() {
-    ContactScreen(rememberNavController())
-}
-

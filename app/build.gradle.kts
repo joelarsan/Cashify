@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -62,9 +63,6 @@ dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:2.8.9")
     implementation("androidx.navigation:navigation-compose:2.8.9")
 
-
-
-
     //Room
     implementation ("androidx.room:room-runtime:2.6.1")
     kapt ("androidx.room:room-compiler:2.6.1")
@@ -77,6 +75,19 @@ dependencies {
 
     //Livedata
     implementation("androidx.compose.runtime:runtime-livedata:1.6.4")
+
+    // Lifecycle and ViewModel dependencies
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+    // ViewModel and LiveData KTX extensions
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0")
+
+    dependencies {
+        implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:latest_version")
+    }
+
 
 
 }
