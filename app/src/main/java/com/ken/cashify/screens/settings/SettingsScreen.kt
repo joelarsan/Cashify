@@ -37,16 +37,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import androidx.room.util.TableInfo
-import com.ken.harakamall.ui.theme.Azure
-import com.ken.harakamall.ui.theme.newwhite
-
+import com.ken.cashify.navigation.ROUT_BUDGET
+import com.ken.cashify.navigation.ROUT_CONTACT
+import com.ken.cashify.navigation.ROUT_PROFILE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController:NavController){
-    Column (modifier = Modifier.fillMaxSize().background(Color.Gray)
+    Column (modifier = Modifier.fillMaxSize().background(Color.Black)
         .verticalScroll(rememberScrollState())
+        .padding(40.dp)
 
     ){
 
@@ -57,7 +57,7 @@ fun SettingsScreen(navController:NavController){
                 .paint(painter = painterResource(R.drawable.alert_dark_frame), contentScale = ContentScale.FillBounds),
 
             shape = RoundedCornerShape(bottomStart = 60.dp, bottomEnd = 60.dp),
-                colors = CardDefaults.cardColors(newwhite)
+                colors = CardDefaults.cardColors(Color.White)
             ){
                 TopAppBar(
                     title = { Text(text ="SETTINGS" ) },
@@ -65,7 +65,8 @@ fun SettingsScreen(navController:NavController){
                         IconButton(onClick = {}) {
                             Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
                         }
-                    }
+                    },
+
 
                 )
 
@@ -89,7 +90,7 @@ fun SettingsScreen(navController:NavController){
                     onClick = {
 
                     },
-                    colors = ButtonDefaults.buttonColors(Color.Gray),
+                    colors = ButtonDefaults.buttonColors(Color.White),
                     shape = RoundedCornerShape(11.dp),
                     modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp)
 
@@ -105,6 +106,7 @@ fun SettingsScreen(navController:NavController){
                 //EXPORT DATA BUTTON
                 Button(
                     onClick = {
+                        ROUT_PROFILE
 
                     },
                     colors = ButtonDefaults.buttonColors(Color.Gray),
@@ -112,7 +114,7 @@ fun SettingsScreen(navController:NavController){
                     modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp)
 
                 ){
-                    Text(text = "EXPORT DATA")
+                    Text(text = "YOUR DATA")
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -123,7 +125,7 @@ fun SettingsScreen(navController:NavController){
                 //SET A NEW BUDGET
                 Button(
                     onClick = {
-
+                        ROUT_BUDGET
                     },
                     colors = ButtonDefaults.buttonColors(Color.Gray),
                     shape = RoundedCornerShape(11.dp),
@@ -140,6 +142,7 @@ fun SettingsScreen(navController:NavController){
                 //PRIVACY POLICY
                 Button(
                     onClick = {
+                        ROUT_CONTACT
 
                     },
                     colors = ButtonDefaults.buttonColors(Color.Gray),

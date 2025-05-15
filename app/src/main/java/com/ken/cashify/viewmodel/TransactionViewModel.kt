@@ -1,5 +1,6 @@
 package com.ken.cashify.viewmodel
-
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,3 +30,20 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 }
+
+
+
+
+class TransactionViewModelFactory(
+    private val application: Application
+) : ViewModelProvider.Factory {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(TransactionViewModel::class.java)) {
+            return TransactionViewModel(application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+

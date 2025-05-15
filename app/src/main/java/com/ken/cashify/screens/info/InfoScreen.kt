@@ -54,7 +54,7 @@ fun InfoScreen(navController:NavController){
             TopAppBar(
                 title = { Text("Transaction History") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back/nav */ }) {
+                    IconButton(onClick = {  }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },

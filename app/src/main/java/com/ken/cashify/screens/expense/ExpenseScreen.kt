@@ -1,25 +1,18 @@
 package com.ken.cashify.screens.expense
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -32,177 +25,145 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.ken.harakamall.ui.theme.Azure
+import com.ken.cashify.model.Expense
+import com.ken.cashify.viewmodel.ExpenseViewModel
 
 @Composable
-fun ExpenseScreen(navController:NavController){
+fun ExpenseScreen(
+    navController: NavController,
+    expenseViewModel: ExpenseViewModel  // Accepting the ViewModel
+) {
+    // Variables for user input
+    var category by remember { mutableStateOf("") }
+    var amount by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
 
-    Column (modifier = Modifier.fillMaxSize().background(Color.Gray)
+    Column(modifier = Modifier.fillMaxSize()
+        .background(Color.Black)
+        .padding(40.dp)
         .verticalScroll(rememberScrollState())
-
     ) {
-
-
         Spacer(modifier = Modifier.height(10.dp))
-
 
         Text(
             text = "ADD EXPENSE",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
-
-
         )
+
         Spacer(modifier = Modifier.height(40.dp))
 
-        
-        //Variables
-        var category by remember { mutableStateOf("") }
-        var amount by remember { mutableStateOf("") }
-        var date by remember { mutableStateOf("") }
-        var description by remember { mutableStateOf("") }
-
-        //Category
+        // Category Input
         OutlinedTextField(
             value = category,
             onValueChange = { category = it },
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp),
+            modifier = Modifier.fillMaxWidth().padding(20.dp),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "",
-                    tint = Color.Black
+                    contentDescription = "Category",
+                    tint = Color.White
                 )
             },
             label = { Text(text = "Category") },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Gray,
-                focusedLabelColor = Azure,
-                unfocusedBorderColor = Color.Black
-
+                focusedBorderColor = Color.White,
+                focusedLabelColor = Color.White,
+                unfocusedBorderColor = Color.White
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
-        //End
+        Spacer(modifier = Modifier.height(40.dp))
 
-
-        Spacer(modifier = Modifier.height(100.dp))
-
-        //amount
+        // Amount Input
         OutlinedTextField(
             value = amount,
             onValueChange = { amount = it },
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp),
+            modifier = Modifier.fillMaxWidth().padding(20.dp),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "",
+                    contentDescription = "Amount",
                     tint = Color.Black
                 )
             },
             label = { Text(text = "Amount") },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color.Gray,
-                focusedLabelColor = Azure,
+                focusedLabelColor = Color.Black,
                 unfocusedBorderColor = Color.Black
-
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
         )
 
-        //End
+        Spacer(modifier = Modifier.height(40.dp))
 
-        Spacer(modifier = Modifier.height(100.dp))
-
-
-
-        //Date
+        // Date Input
         OutlinedTextField(
             value = date,
             onValueChange = { date = it },
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp),
+            modifier = Modifier.fillMaxWidth().padding(20.dp),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.DateRange,
-                    contentDescription = "",
+                    contentDescription = "Date",
                     tint = Color.Black
                 )
             },
             label = { Text(text = "Date") },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color.Gray,
-                focusedLabelColor = Azure,
+                focusedLabelColor = Color.Black,
                 unfocusedBorderColor = Color.Black
-
             ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
-        //End
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
-
-
-        //Description
+        // Description Input
         OutlinedTextField(
             value = description,
             onValueChange = { description = it },
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp),
+            modifier = Modifier.fillMaxWidth().padding(20.dp),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "",
+                    contentDescription = "Description",
                     tint = Color.Black
                 )
             },
             label = { Text(text = "Description") },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = Color.Black,
-                focusedLabelColor = Azure,
+                focusedLabelColor = Color.Black,
                 unfocusedBorderColor = Color.Black
-
             ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
-        //End
+        Spacer(modifier = Modifier.height(40.dp))
 
-        Spacer(modifier = Modifier.height(100.dp))
-
-
-
-
-
+        // Save Button
         Button(
             onClick = {
+                // Create an Expense object to insert into the database
+                val expense = Expense(
+                    description = description,
+                    amount = amount.toDoubleOrNull() ?: 0.0
+                )
+                expenseViewModel.insertExpense(expense)  // Calling the ViewModel function to insert the expense
             },
-            colors = ButtonDefaults.buttonColors(Color.DarkGray),
+            colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(11.dp),
-            modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp)
-
+            modifier = Modifier.fillMaxWidth().padding(20.dp)
         ) {
-            Text(text = "Save Transaction")
+            Text(text = "Save New Expense")
         }
-
     }
-
-
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ExpenseScreenPreview() {
-    ExpenseScreen(rememberNavController())
-
 }

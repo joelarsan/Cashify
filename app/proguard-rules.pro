@@ -2,6 +2,12 @@
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.
 #
+-keep class androidx.room.** { *; }
+-keepclassmembers class * {
+    @androidx.room.* <methods>;
+}
+
+
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 

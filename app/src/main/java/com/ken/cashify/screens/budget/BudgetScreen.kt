@@ -48,7 +48,9 @@ import java.nio.file.WatchEvent
 
 @Composable
 fun BudgetScreen(navController:NavController){
-    Column (modifier = Modifier.fillMaxSize().background(Color.Gray)
+    Column (modifier = Modifier.fillMaxSize()
+        .padding(40.dp)
+        .background(Color.Gray)
         .verticalScroll(rememberScrollState())
     ) {
 

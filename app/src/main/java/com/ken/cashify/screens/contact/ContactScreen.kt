@@ -28,8 +28,8 @@ fun ContactScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF2F2F2))
-            .padding(20.dp),
+            .background(Color.Black)
+            .padding(40.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(30.dp))
@@ -53,30 +53,30 @@ fun ContactScreen(navController: NavController) {
         // Contact Buttons
         Button(
             onClick = {
-                val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:+1234567890"))
+                val callIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:+254 746 172 669"))
                 context.startActivity(callIntent)
             },
             modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
         ) {
-            Text("Call", color = Color.White)
+            Text("Call", color = Color.Black)
         }
 
         Button(
             onClick = {
-                val smsIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:+1234567890"))
+                val smsIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:+254 746 172 669"))
                 context.startActivity(smsIntent)
             },
             modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3))
         ) {
-            Text("Message", color = Color.White)
+            Text("Message", color = Color.Black)
         }
 
         Button(
             onClick = {
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:someone@example.com")
+                    data = Uri.parse("mailto:joelarsan50@gmail.com")
                     putExtra(Intent.EXTRA_SUBJECT, "Customer Inquiry")
                 }
                 context.startActivity(emailIntent)
@@ -84,7 +84,7 @@ fun ContactScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF44336))
         ) {
-            Text("Email", color = Color.White)
+            Text("Email", color = Color.Black)
         }
     }
 }

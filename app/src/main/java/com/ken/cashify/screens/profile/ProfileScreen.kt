@@ -61,13 +61,17 @@ fun ProfileScreen(navController: NavController,
         uri?.let { profileViewModel.updateProfileImage(it) }
     }
 
-    Column(
+
+
+        Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Profile Image
+
+
+                // Profile Image
         Box(
             modifier = Modifier
                 .size(100.dp)
